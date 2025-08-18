@@ -1,103 +1,214 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Card, CardContent } from "@/components/ui/card"
+import { Heart, MapPin, Clock, Gift, Camera, Music, PartyPopper } from "lucide-react"
+
+export default function WeddingPage() {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+  const bgMarron = "bg-[#d1b36f]/50";
+  const bgVerde = "bg-[#5A7326]/50";
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className={`min-h-screen ${bgMarron}`}>
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/casPortada.jpg')`,
+            transform: `translateY(${scrollY * 0.5}px)`,
+          }}
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+        <div className="absolute inset-0 bg-white/20" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div
+          className="relative z-10 text-center text-white"
+          style={{
+            transform: `translateY(${scrollY * 0.3}px)`,
+          }}
+        >
+          <h1 className="text-2xl font-light tracking-[0.2em] mb-8">NOS CASAMOS</h1>
+          <div className="w-1/2 mx-auto">
+            <h2 className="text-6xl md:text-8xl font-bold tracking-wider mb-6 opacity-90">ANA Y AGUS</h2>
+          </div>
+          <p className="text-xl font-light tracking-[0.3em]">20 DE SEPTIEMBRE</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse" />
+          </div>
+        </div>
+      </section>
+
+      {/* Wedding Details Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div
+            className="text-center mb-16"
+            style={{
+              transform: `translateY(${Math.max(0, (scrollY - 400) * -0.1)}px)`,
+              opacity: Math.min(1, Math.max(0, (scrollY - 200) / 300)),
+            }}
+          >
+            <h3 className="text-4xl font-bold tracking-wide text-white mb-4">Nuestra Celebración</h3>
+            <div className={`w-24 h-px ${bgMarron} mx-auto`} />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 mb-5">
+            <Card className={`bg-white/80 backdrop-blur-sm ${bgVerde} shadow-lg`}>
+              <CardContent className="p-8 text-center">
+                <div className={`w-16 h-16 ${bgVerde} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                  <Heart className="w-8 h-8 text-[#d1b36f]/50" />
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-4">Ceremonia</h4>
+                <div className="space-y-2 text-white">
+                  <div className="flex items-center justify-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>21:00 hs</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm">Parroquia Santo Domingo de Guzmán</span>
+                  </div>
+                  <p className="text-sm mt-4">Bombal, Santa fe</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className={`bg-white/80 backdrop-blur-sm ${bgVerde} shadow-lg`}>
+              <CardContent className="p-8 text-center">
+                <div className={`w-16 h-16 ${bgVerde} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                  <Music className="w-8 h-8 text-[#d1b36f]/50" />
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-4">Fiesta</h4>
+                <div className="space-y-2 text-white">
+                  <div className="flex items-center justify-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>22:00 hs</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>Salón: Club Sportivo Bombal</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <PartyPopper className="w-4 h-4" />
+                    <p className="text-sm">Moreno 601</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Gift Section */}
+      <section className={`py-20 ${bgVerde}`}>
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div
+            className="mb-12"
+            style={{
+              transform: `translateY(${Math.max(0, (scrollY - 800) * -0.1)}px)`,
+              opacity: Math.min(1, Math.max(0, (scrollY - 600) / 300)),
+            }}
+          >
+            <Gift className="w-16 h-16 text-[#d1b36f] mx-auto mb-6" />
+            <h3 className="text-4xl font-bold tracking-wide text-white mb-6">Regalo de Bodas</h3>
+            <p className="text-lg text-white mb-8 max-w-2xl mx-auto">
+              Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, puedes hacerlo a través de una
+              transferencia bancaria.
+            </p>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="lg"
+                  className={`${bgMarron} hover:${bgMarron}/50 text-white px-8 py-3 rounded-full font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer`}
+                >
+                  Ver Datos Bancarios
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-center text-2xl font-light text-gray-800">Datos Bancarios</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 p-4">
+                  <div className={`${bgMarron} p-4 rounded-lg`}>
+                    <h4 className="font-medium text-gray-800 mb-2">Mercado Pago</h4>
+                    <div className="space-y-1 text-sm text-gray-600">
+                      <p>
+                        <span className="font-medium">Titular:</span> Agustín Alberto Riesco
+                      </p>
+                      <p>
+                        <span className="font-medium">CVU:</span> 0000003100030385960107
+                      </p>
+                      <p>
+                        <span className="font-medium">Alias:</span> lunademiel.ana.agus
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 text-center mt-4">
+                    ¡Muchas gracias por acompañarnos en este día tan especial!
+                  </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery Preview */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div
+            className="text-center mb-16"
+            style={{
+              transform: `translateY(${Math.max(0, (scrollY - 1200) * -0.1)}px)`,
+              opacity: Math.min(1, Math.max(0, (scrollY - 1000) / 300)),
+            }}
+          >
+            <Camera className={`w-16 h-16 text-[#5A7326] mx-auto mb-6`} />
+            <h3 className="text-4xl font-light tracking-wide text-white mb-4">Nuestros Momentos</h3>
+            <div className={`w-24 h-px ${bgVerde} mx-auto mb-8`} />
+            <p className="text-lg text-white max-w-2xl mx-auto">
+              Algunos de nuestros momentos más especiales juntos
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div
+                key={i}
+                className="aspect-square bg-cover bg-center rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                style={{
+                  backgroundImage: `url('/cas${i}.jpg')`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-gradient-to-t from-[#5A7326]-100 to-transparent">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="mb-8">
+            <Heart className="w-12 h-12 text-[#5A7326] mx-auto mb-4" />
+            <h4 className="text-2xl font-light text-white mb-4">¡Nos vemos el gran día!</h4>
+            <p className="text-white">Con amor, Ana y Agus</p>
+          </div>
+          <div className="w-32 h-px bg-[#5A7326] mx-auto" />
+        </div>
       </footer>
     </div>
-  );
+  )
 }
