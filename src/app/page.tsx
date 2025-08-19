@@ -4,10 +4,35 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, MapPin, Clock, Gift, Camera, Music, PartyPopper } from "lucide-react"
+import { Heart, MapPin, Clock, Gift, Camera, Music, PartyPopper, CalendarCheck2 } from "lucide-react"
 
 export default function WeddingPage() {
   const [scrollY, setScrollY] = useState(0)
+
+  // 👇 ADD: estados para countdown
+  const [timeLeft, setTimeLeft] = useState<{
+    days: number; hours: number; minutes: number; seconds: number;
+  } | null>(null);
+
+  // fecha objetivo (zona horaria -03:00)
+  const targetISO = "2025-09-20T21:00:00-03:00"; // 20/09 21:00 hs Santa Fe
+  const computeLeft = () => {
+    const diff = new Date(targetISO).getTime() - Date.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    return { days, hours, minutes, seconds };
+  };
+
+  // iniciar/actualizar countdown solo en cliente
+  useEffect(() => {
+    setTimeLeft(computeLeft());             // primer cálculo
+    const id = setInterval(() => setTimeLeft(computeLeft()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -50,8 +75,41 @@ export default function WeddingPage() {
         </div>
       </section>
 
+      {/* 👇 ADD: sección de cuenta regresiva */}
+      {timeLeft && (
+        <section className="py-5 px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="bg-white/80 backdrop-blur-sm shadow-lg">
+              <CardContent className="p-6 md:p-8 text-center">
+                <h3 className="text-2xl font-light tracking-wide text-[#5A7326] mb-4">
+                  Falta cada vez menos
+                </h3>
+                <div className="grid grid-cols-4 gap-4 text-[#5A7326]">
+                  <div>
+                    <div className="text-4xl font-bold">{timeLeft.days}</div>
+                    <div className="uppercase text-xs tracking-widest opacity-80">Días</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-bold">{timeLeft.hours.toString().padStart(2, "0")}</div>
+                    <div className="uppercase text-xs tracking-widest opacity-80">Hs</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-bold">{timeLeft.minutes.toString().padStart(2, "0")}</div>
+                    <div className="uppercase text-xs tracking-widest opacity-80">Min</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-bold">{timeLeft.seconds.toString().padStart(2, "0")}</div>
+                    <div className="uppercase text-xs tracking-widest opacity-80">Seg</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      )}
+
       {/* Wedding Details Section */}
-      <section className="py-20 px-4">
+      <section className="py-15 px-4">
         <div className="max-w-6xl mx-auto">
           <div
             className="text-center mb-16"
@@ -197,6 +255,12 @@ export default function WeddingPage() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-4xl mx-auto px-4 text-center flex flex-col items-center text-white">
+        <CalendarCheck2 className="w-4 h-4" />
+        <p className="font-bold">Confirmar asistencia </p>
+        <p className="font-light">hasta el 5 de Septiembre</p>
+      </div>
 
       {/* Footer */}
       <footer className="py-16 bg-gradient-to-t from-[#5A7326]-100 to-transparent">
