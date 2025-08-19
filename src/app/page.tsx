@@ -160,7 +160,7 @@ export default function WeddingPage() {
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <PartyPopper className="w-4 h-4" />
-                    <p className="text-sm">Moreno 601</p>
+                    <p className="text-sm">Moreno y Juan de Garay</p>
                   </div>
                 </div>
               </CardContent>
